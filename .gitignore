@@ -7,3 +7,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Local flow recipes and generated scripts
+recipes/availity.json
+recipes/wayStar.json
+flows/availity.js
+flows/wayStar.js
