@@ -1,0 +1,2 @@
+page.goto('https://arihara-sudhan.github.io/some-rpa/green_input.html');
+page.fill('#userInput', 'hello world');

@@ -1,0 +1,20 @@
+{
+  "name": "auto_moat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "flow:run": "node utils/runFlow.js",
+    "ui:start": "node scripts/ui-server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}

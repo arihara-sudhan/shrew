@@ -1,0 +1,101 @@
+{
+  "id": "availity-playwright-flow",
+  "name": "Availity Playwright Recorded Flow",
+  "version": "1.0.0",
+  "description": "Converted from playwright sample to flow format",
+  "config": {
+    "baseUrl": "https://essentials.availity.com/static/public/onb/onboarding-ui-apps/availity-fr-ui",
+    "timeout": 30000,
+    "retries": 1,
+    "headless": false,
+    "viewport": {
+      "width": 640,
+      "height": 360
+    },
+    "video": false
+  },
+  "variables": {
+    "userId": "tanishqmoative",
+    "password": "RCS#pass002"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "action": "navigate",
+      "description": "Open login page",
+      "url": "{{baseUrl}}/#/login",
+      "waitUntil": "load",
+      "selector": ""
+    },
+    {
+      "id": "step-2",
+      "action": "fill",
+      "description": "Enter User ID",
+      "role": "textbox",
+      "name": "User ID",
+      "selector": "role=textbox[name='User ID']",
+      "fallbackSelectors": [
+        "input[aria-label='User ID']",
+        "input[placeholder='User ID']"
+      ],
+      "value": "{{userId}}",
+      "clearFirst": true
+    },
+    {
+      "id": "step-3",
+      "action": "fill",
+      "description": "Enter Password",
+      "role": "textbox",
+      "name": "Password",
+      "selector": "role=textbox[name='Password']",
+      "fallbackSelectors": [
+        "input[aria-label='Password']",
+        "input[placeholder='Password']"
+      ],
+      "value": "{{password}}",
+      "clearFirst": true
+    },
+    {
+      "id": "step-4",
+      "action": "click",
+      "description": "Click Sign In",
+      "selector": "button:has-text('Sign In')",
+      "waitForURL": "**/authenticate**",
+      "waitForLoadState": "networkidle"
+    },
+    {
+      "id": "step-5",
+      "action": "click",
+      "description": "Select Authenticator app option",
+      "role": "radio",
+      "name": "Authenticate me using my",
+      "selector": "input[type='radio'][value='Authenticate me using my Authenticator app']",
+      "fallbackSelectors": [
+        "role=radio[name='Authenticate me using my']",
+        "label:has-text('Authenticate me using my Authenticator app')",
+        "input[type='radio'][name='choice']"
+      ]
+    },
+    {
+      "id": "step-6",
+      "action": "click",
+      "description": "Click Continue after choosing authenticator app",
+      "selector": "button:has-text('Continue')",
+      "waitForURL": "**/verify"
+    },
+    {
+      "id": "step-7",
+      "action": "fill",
+      "description": "Enter authenticator OTP code",
+      "selector": "input[name='code']",
+      "totpFrom": "availity"
+    },
+    {
+      "id": "step-8",
+      "action": "click",
+      "description": "Click Continue after entering OTP",
+      "selector": "button:has-text('Continue')"
+    }
+  ],
+  "teardown": []
+}

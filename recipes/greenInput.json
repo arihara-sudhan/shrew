@@ -1,0 +1,47 @@
+{
+  "id": "green-input-flow",
+  "name": "Green Input Fill Flow",
+  "version": "1.0.1",
+  "description": "Navigates to the green input page and types into the input field. Resilient to dynamic ID changes via the label click feature.",
+  "config": {
+    "baseUrl": "https://arihara-sudhan.github.io/some-rpa",
+    "timeout": 30000,
+    "retries": 1,
+    "headless": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "video": false
+  },
+  "variables": {
+    "inputText": "hello world"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "action": "navigate",
+      "description": "Open the green input page",
+      "url": "https://arihara-sudhan.github.io/some-rpa/green_input.html",
+      "waitUntil": "load"
+    },
+    {
+      "id": "step-2",
+      "action": "fill",
+      "description": "Type into the input field — resilient to dynamic ID changes",
+      "selector": "#hemanInput",
+      "value": "Hello, Shrewd!",
+      "clearFirst": true,
+      "fallbackSelectors": [
+        "#userInput"
+      ]
+    },
+    {
+      "id": "step-3",
+      "action": "waitForTimeout",
+      "description": "Wait 3 seconds before closing",
+      "ms": 3000
+    }
+  ],
+  "teardown": []
+}
