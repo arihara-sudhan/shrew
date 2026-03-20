@@ -258,13 +258,16 @@ ${stepCode}
 require('dotenv').config();
 const { chromium } = require('playwright');
 const { getTOTPForPayer } = require('../utils/totp');
+const { handlePageInterruptions } = require('../utils/interruptionHandler');
 
 async function run() {
   const browser = await chromium.launch({ headless: ${headless} });
   const page = await browser.newPage();
+  const flowPath = '${quotedFlowPath}';
 
   async function runStep(step, fn) {
     try {
+      await handlePageInterruptions(page, step, flowPath);
       await fn();
     } catch (error) {
       error.step = step;

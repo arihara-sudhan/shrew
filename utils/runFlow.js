@@ -5,6 +5,7 @@ const { chromium } = require('playwright');
 const { ensureCompiledFlow } = require('./flowCompiler');
 const { getTOTPForPayer } = require('./totp');
 const { buildRepairContext, flattenSelectorsFromContext, summarizeRepairContext, summarizeRepairContextForLog } = require('./repairContext');
+const { handlePageInterruptions } = require('./interruptionHandler');
 
 async function requestSelectorFromAI(repairContext, hint, step = {}) {
   const openaiKey = process.env.OPENAI_API_KEY;
@@ -391,6 +392,8 @@ async function executeFlow(flowPath) {
 
       while (attempts < 5) {
         try {
+          await handlePageInterruptions(page, step, flowPath);
+
           if (step.action === 'navigate') {
             const context = { ...(flow.config || {}), ...(flow.variables || {}) };
             const rawUrl = resolveTemplate(step.url || `${flow.config?.baseUrl || ''}`, context);
@@ -535,6 +538,8 @@ async function healStepFromCompiledFailure(flowPath, failedStep, failedSelectors
       if (currentStep.id === step.id) break;
 
       try {
+        await handlePageInterruptions(page, currentStep, flowPath);
+
         if (currentStep.action === 'navigate') {
           const context = { ...(flow.config || {}), ...(flow.variables || {}) };
           const rawUrl = resolveTemplate(currentStep.url || `${flow.config?.baseUrl || ''}`, context);
