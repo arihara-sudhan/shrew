@@ -1,0 +1,132 @@
+[
+  {
+    "provider": "Arcadia Medical Group",
+    "patientName": "Olivia Bennett",
+    "dob": "1990-04-18",
+    "dosFrom": "2026-02-01",
+    "dosTo": "2026-02-10",
+    "memberId": "MBR1001",
+    "claimNo": "CLM90001",
+    "claim_result": {
+      "check_date": "2026-02-22",
+      "status": "Partially Paid"
+    }
+  },
+  {
+    "provider": "NorthBay Clinical Services",
+    "patientName": "Noah Carter",
+    "dob": "1985-09-03",
+    "dosFrom": "2026-01-12",
+    "dosTo": "2026-01-20",
+    "memberId": "MBR1002",
+    "claimNo": "CLM90002",
+    "claim_result": {
+      "check_date": "2026-02-03",
+      "status": "Paid"
+    }
+  },
+  {
+    "provider": "SummitCare Health Network",
+    "patientName": "Emma Hughes",
+    "dob": "1978-12-11",
+    "dosFrom": "2026-03-02",
+    "dosTo": "2026-03-05",
+    "memberId": "MBR1003",
+    "claimNo": "CLM90003",
+    "claim_result": {
+      "check_date": "2026-03-14",
+      "status": "Partially Paid"
+    }
+  },
+  {
+    "provider": "Horizon Family Practice",
+    "patientName": "Liam Walker",
+    "dob": "1994-06-27",
+    "dosFrom": "2026-02-14",
+    "dosTo": "2026-02-14",
+    "memberId": "MBR1004",
+    "claimNo": "CLM90004",
+    "claim_result": {
+      "check_date": "2026-02-20",
+      "status": "Paid"
+    }
+  },
+  {
+    "provider": "Arcadia Medical Group",
+    "patientName": "Sophia Reed",
+    "dob": "1989-01-19",
+    "dosFrom": "2026-03-08",
+    "dosTo": "2026-03-12",
+    "memberId": "MBR1005",
+    "claimNo": "CLM90005",
+    "claim_result": {
+      "check_date": "2026-03-25",
+      "status": "Pending Review"
+    }
+  },
+  {
+    "provider": "NorthBay Clinical Services",
+    "patientName": "Mason Price",
+    "dob": "1972-11-05",
+    "dosFrom": "2026-01-30",
+    "dosTo": "2026-02-02",
+    "memberId": "MBR1006",
+    "claimNo": "CLM90006",
+    "claim_result": {
+      "check_date": "2026-02-08",
+      "status": "Partially Paid"
+    }
+  },
+  {
+    "provider": "SummitCare Health Network",
+    "patientName": "Ava Simmons",
+    "dob": "1998-07-22",
+    "dosFrom": "2026-02-24",
+    "dosTo": "2026-02-28",
+    "memberId": "MBR1007",
+    "claimNo": "CLM90007",
+    "claim_result": {
+      "check_date": "2026-03-04",
+      "status": "Paid"
+    }
+  },
+  {
+    "provider": "Horizon Family Practice",
+    "patientName": "Ethan Brooks",
+    "dob": "1969-03-15",
+    "dosFrom": "2026-03-10",
+    "dosTo": "2026-03-15",
+    "memberId": "MBR1008",
+    "claimNo": "CLM90008",
+    "claim_result": {
+      "check_date": "1969-03-15",
+      "status": "Partially Paid"
+    }
+  },
+  {
+    "provider": "Arcadia Medical Group",
+    "patientName": "Isabella Cruz",
+    "dob": "1983-10-09",
+    "dosFrom": "2026-01-05",
+    "dosTo": "2026-01-08",
+    "memberId": "MBR1009",
+    "claimNo": "CLM90009",
+    "claim_result": {
+      "check_date": "1983-10-09",
+      "status": "Partially Paid"
+    }
+  },
+  {
+    "provider": "SummitCare Health Network",
+    "patientName": "James Patel",
+    "dob": "1976-05-30",
+    "dosFrom": "2026-02-18",
+    "dosTo": "2026-02-25",
+    "memberId": "MBR1010",
+    "claimNo": "CLM90010",
+    "claim_result": {
+      "check_date": "1976-05-30",
+      "status": "Paid"
+    }
+  }
+]

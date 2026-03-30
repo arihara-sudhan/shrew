@@ -1,4 +1,4 @@
-// Auto-generated from flow: recipes/withoutContinue.json
+// Auto-generated from flow: C:\\Users\\aravi\\Desktop\\auto_moat\\recipes\\withoutContinue.json
 require('dotenv').config();
 const { chromium } = require('playwright');
 const { getTOTPForPayer } = require('../utils/totp');
@@ -7,7 +7,7 @@ const { handlePageInterruptions } = require('../utils/interruptionHandler');
 async function run() {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
-  const flowPath = 'recipes/withoutContinue.json';
+  const flowPath = 'C:\\Users\\aravi\\Desktop\\auto_moat\\recipes\\withoutContinue.json';
 
   async function runStep(step, fn) {
     try {

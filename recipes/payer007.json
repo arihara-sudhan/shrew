@@ -1,0 +1,199 @@
+{
+  "id": "payer-007-claims-flow",
+  "name": "Payer 007 Claims Fill-Only Flow",
+  "version": "1.1.0",
+  "description": "Logs in and fills the payer 007 claim form for each claim in data/claims.json without submitting results.",
+  "config": {
+    "baseUrl": "https://arihara-sudhan.github.io/some-rpa",
+    "timeout": 30000,
+    "retries": 1,
+    "headless": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "video": false
+  },
+  "variables": {
+    "username": "payer_07",
+    "password": "payer7127"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "action": "navigate",
+      "description": "Open payer 007 page",
+      "url": "{{baseUrl}}/payer_007_.html",
+      "waitUntil": "load"
+    },
+    {
+      "id": "step-2",
+      "action": "fill",
+      "description": "Enter Username",
+      "selector": "role=textbox[name='Username']",
+      "value": "{{username}}",
+      "clearFirst": true
+    },
+    {
+      "id": "step-3",
+      "action": "fill",
+      "description": "Enter Password",
+      "selector": "role=textbox[name='Password']",
+      "value": "{{password}}",
+      "clearFirst": true
+    },
+    {
+      "id": "step-4",
+      "action": "click",
+      "description": "Click Sign In",
+      "selector": "role=button[name='Sign In']"
+    },
+    {
+      "id": "step-5",
+      "action": "forEach",
+      "description": "Fill claim form for each record",
+      "source": "data/claims.json",
+      "item": "claim",
+      "steps": [
+        {
+          "id": "step-5-1",
+          "action": "selectOption",
+          "description": "Select provider",
+          "selector": "role=combobox[name='Provider Selection']",
+          "value": "{{claim.provider}}"
+        },
+        {
+          "id": "step-5-2",
+          "action": "fill",
+          "description": "Enter Patient Name",
+          "selector": "role=textbox[name='Patient Name']",
+          "value": "{{claim.patientName}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-3",
+          "action": "fill",
+          "description": "Enter DOB",
+          "selector": "role=textbox[name='DOB']",
+          "value": "{{claim.dob}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-4",
+          "action": "fill",
+          "description": "Enter Date of Service From",
+          "selector": "role=textbox[name='Date of Service From']",
+          "value": "{{claim.dosFrom}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-5",
+          "action": "fill",
+          "description": "Enter Date of Service To",
+          "selector": "role=textbox[name='Date of Service To']",
+          "value": "{{claim.dosTo}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-6",
+          "action": "fill",
+          "description": "Enter Member ID",
+          "selector": "role=textbox[name='Member ID']",
+          "value": "{{claim.memberId}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-7",
+          "action": "fill",
+          "description": "Enter Claim Number",
+          "selector": "role=textbox[name='Claim Number']",
+          "value": "{{claim.claimNo}}",
+          "clearFirst": true
+        },
+        {
+          "id": "step-5-8",
+          "action": "click",
+          "description": "Click Get Claim Results",
+          "selector": "role=button[name='Get Claim Results']"
+        },
+        {
+          "id": "step-5-9",
+          "action": "captureClaimResult",
+          "description": "Capture check date and status from results page and write back to the current claim record",
+          "selector": "#backBtn",
+          "requiredText": "Claim Results",
+          "resultsReadySelector": "#backBtn",
+          "checkDateSelector": "#resultsBody tr:first-child td:first-child",
+          "statusSelector": "#resultsBody tr:first-child td:nth-child(4)",
+          "backToFormSelector": "#backBtn",
+          "waitForFormSelector": "role=combobox[name='Provider Selection']",
+          "outputCheckDatePath": "claim.claim_result.check_date",
+          "outputStatusPath": "claim.claim_result.status"
+        }
+      ]
+    }
+  ],
+  "teardown": [],
+  "exceptionalScenarios": [
+    {
+      "id": "scenario-update-available",
+      "name": "Update Available Gate",
+      "description": "Random update gate can block transition to claim results.",
+      "instruction": "Dismiss update blocker and continue flow safely.",
+      "useAI": true,
+      "when": {
+        "urlIncludes": "payer_007_",
+        "titleIncludes": "",
+        "textIncludes": "update available"
+      },
+      "then": {
+        "action": "click",
+        "description": "Continue after update gate",
+        "selector": "button:has-text('Remind me later')"
+      }
+    },
+    {
+      "id": "scenario-feedback-prompt",
+      "name": "Feedback Prompt Gate",
+      "description": "Random feedback prompt can block transition to claim results.",
+      "instruction": "Skip or submit feedback and proceed.",
+      "useAI": true,
+      "when": {
+        "urlIncludes": "payer_007_",
+        "titleIncludes": "",
+        "textIncludes": "how likely are you to recommend"
+      },
+      "then": {
+        "action": "click",
+        "description": "Skip feedback prompt",
+        "selector": "button:has-text('Skip')"
+      }
+    },
+    {
+      "id": "scenario-confirmation-prompt",
+      "name": "Confirmation Prompt Gate",
+      "description": "Random confirmation prompt can block transition to claim results.",
+      "instruction": "Confirm and continue to claim results.",
+      "useAI": false,
+      "when": {
+        "urlIncludes": "payer_007_",
+        "titleIncludes": "",
+        "textIncludes": "please confirm to continue"
+      },
+      "then": {
+        "description": "Enter confirmation text and continue",
+        "steps": [
+          {
+            "action": "fill",
+            "selector": "#confirmInput",
+            "value": "CONFIRM"
+          },
+          {
+            "action": "click",
+            "selector": "button:has-text('Yes, Continue')"
+          }
+        ]
+      }
+    }
+  ]
+}

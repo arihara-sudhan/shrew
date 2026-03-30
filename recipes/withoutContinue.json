@@ -166,5 +166,20 @@
       "selector": "role=button[name='Finish']"
     }
   ],
-  "teardown": []
+  "teardown": [],
+  "conditionals": [
+    {
+      "id": "conditional-1773983348221",
+      "when": {
+        "urlIncludes": "with-continue.html",
+        "titleIncludes": "Three Steps",
+        "textIncludes": "updates"
+      },
+      "then": {
+        "action": "click",
+        "description": "Clicking 'Continue' will dismiss the update notice and allow proceeding to the next step.",
+        "selector": "button:has-text('Continue')"
+      }
+    }
+  ]
 }

@@ -78,6 +78,18 @@ function getEditableFields(step) {
     'waitForURL',
     'waitForLoadState',
     'waitForNavigation',
+    'mode',
+    'once',
+    'messageIncludes',
+    'source',
+    'item',
+    'steps',
+    'maxItems',
+    'requiredText',
+    'checkDateSelector',
+    'statusSelector',
+    'outputCheckDatePath',
+    'outputStatusPath',
   ];
 
   for (const key of optionalKeys) {

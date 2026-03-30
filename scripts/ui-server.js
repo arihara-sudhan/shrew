@@ -147,13 +147,16 @@ Use this schema:
 
 Rules:
 - Preserve Playwright order exactly.
-- Supported actions: navigate, click, fill, hover, press, selectOption, waitForTimeout.
+- Supported actions: navigate, click, fill, hover, press, selectOption, waitForTimeout, handleDialog, forEach, captureClaimResult.
 - Use step ids like "step-1", "step-2", etc.
 - For goto use action "navigate" and field "url".
 - For fill use "selector", "value", and "clearFirst": true.
 - For click/hover/press/selectOption use "selector".
 - For press use field "key".
 - For selectOption use field "value".
+- For dialog handling use action "handleDialog" with "mode" as "dismiss" or "accept", optional "once", and optional "messageIncludes".
+- For looping use action "forEach" with "source" (JSON array path), optional "item", and nested "steps".
+- For results scraping use action "captureClaimResult" with optional "requiredText", "checkDateSelector", "statusSelector", and output path fields.
 - Derive descriptions from the code intent.
 - Put literal values into variables when they look reusable, otherwise preserve them directly.
 - Infer config.baseUrl from the first goto URL origin when possible.
@@ -239,6 +242,18 @@ async function updateRecipeStep(recipeFile, stepId, updates) {
     'waitForURL',
     'waitForLoadState',
     'waitForNavigation',
+    'mode',
+    'once',
+    'messageIncludes',
+    'source',
+    'item',
+    'steps',
+    'maxItems',
+    'requiredText',
+    'checkDateSelector',
+    'statusSelector',
+    'outputCheckDatePath',
+    'outputStatusPath',
   ]);
 
   for (const [key, value] of Object.entries(updates || {})) {

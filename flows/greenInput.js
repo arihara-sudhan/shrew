@@ -2,13 +2,16 @@
 require('dotenv').config();
 const { chromium } = require('playwright');
 const { getTOTPForPayer } = require('../utils/totp');
+const { handlePageInterruptions } = require('../utils/interruptionHandler');
 
 async function run() {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
+  const flowPath = 'C:\\Users\\aravi\\Desktop\\auto_moat\\recipes\\greenInput.json';
 
   async function runStep(step, fn) {
     try {
+      await handlePageInterruptions(page, step, flowPath);
       await fn();
     } catch (error) {
       error.step = step;

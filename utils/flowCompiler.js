@@ -202,6 +202,16 @@ ${fallback}
       const ms = Number(step.ms || 0);
       return `  await page.waitForTimeout(${ms});`;
     }
+    case 'handleDialog': {
+      const mode = step.mode === 'accept' ? 'accept' : 'dismiss';
+      const useOnce = step.once !== false;
+      const messageIncludes = toSingleQuotedString(resolveTemplate(step.messageIncludes || '', context));
+      const handlerBody = messageIncludes
+        ? `if (!dialog.message().toLowerCase().includes('${messageIncludes.toLowerCase()}')) return;\n    console.log(\`Dialog message: \${dialog.message()}\`);\n    dialog.${mode}().catch(() => {});`
+        : `console.log(\`Dialog message: \${dialog.message()}\`);\n    dialog.${mode}().catch(() => {});`;
+      const method = useOnce ? 'once' : 'on';
+      return `  page.${method}('dialog', (dialog) => {\n    ${handlerBody}\n  });`;
+    }
     default:
       return `  // Unsupported action: ${step.action}`;
   }
@@ -223,6 +233,9 @@ function buildResolvedStepMeta(step, context) {
     waitForLoadState: step.waitForLoadState || '',
     clearFirst: Boolean(step.clearFirst),
     totpFrom: step.totpFrom || '',
+    mode: step.mode || '',
+    once: step.once !== undefined ? Boolean(step.once) : true,
+    messageIncludes: step.messageIncludes || '',
     value: typeof step.value === 'string' ? resolveTemplate(step.value, context) : step.value,
   };
 }
